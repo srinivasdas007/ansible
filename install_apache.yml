@@ -20,5 +20,5 @@
     apt: 
       name: libapache2-mod-php
       state: latest
-    when: ansible-distribution == 'ubuntu'
+    when: ansible_distribution == 'ubuntu'
 
