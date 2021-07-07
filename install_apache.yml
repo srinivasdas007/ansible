@@ -7,8 +7,8 @@
   - name: installing apache2 and php  packages
     apt: 
       name: 
-        - apache2
-        - libapache2-mod-php
+        - "{{ apache_package}}"
+        - "{{ php_package }}"
       state: latest
       update_cache: true
     when: ansible_distribution == 'ubuntu'
