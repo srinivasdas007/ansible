@@ -1,0 +1,11 @@
+---
+- hosts: file_servers
+  become: true
+  tasks:
+
+  - name: installing samba on ubuntu
+    apt:
+      name: samba
+      state: latest
+    when: ansible_distribution == 'ubuntu'
+

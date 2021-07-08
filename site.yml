@@ -1,7 +1,9 @@
 - hosts: all
   become: true
   pre_tasks:
+
   - name: install updates(Ubuntu)
+    tags: always
     apt:
       upgrade: dist
       update_cache: yes
@@ -13,6 +15,7 @@
   tasks:
 
   - name: install apache and php packages
+    tags: ubuntu, apache, apache2
     apt: 
       name: 
         - apache2
@@ -22,6 +25,7 @@
 
 
 - hosts: db_servers
+  tags: ubuntu,db,mariadb
   become: true
   tasks: 
 
@@ -38,8 +42,14 @@
     when: ansible_distribution == 'Centos'
 
 
-
-
-
+- hosts: file_servers
+  become: true
+  tasks: 
+  
+  - name: install samba package
+    tags: samba
+    package: 
+      name: samba
+      state: latest
 
 
