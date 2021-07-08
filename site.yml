@@ -21,6 +21,23 @@
     when: ansible_distribution == 'Ubuntu'
 
 
+- hosts: db_servers
+  become: true
+  tasks: 
+
+  - name: install mariadb package(Ubuntu)
+    apt: 
+      name: mariadb
+      state: latest
+    when: ansible_distribution == 'Ubuntu'
+
+  - name: install mariabd package (Centos)
+    dnf: 
+      name: mariadb
+      state: latest
+    when: ansible_distribution == 'Centos'
+
+
 
 
 
