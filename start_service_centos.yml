@@ -1,0 +1,11 @@
+---
+- hosts: centos
+  become: true
+  tasks:
+  - name: start httpd(centos) service
+    tags: centos, apache, httpd
+    service:
+      name: httpd
+      state: started
+    when: ansible_distribution == 'centos'
+
