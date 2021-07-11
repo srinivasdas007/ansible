@@ -10,3 +10,18 @@
       enabled: yes
     when: ansible_distribution == 'centos'
 
+
+ - name: changing email address for admin
+   tags: apache, centos, httpd.
+   lineinfile:
+     path: /etc/httpd/conf/httpd.conf
+     regexp: '^ServerAdmin'
+     line: ServerAdmin somebody@somewhere.net
+   when: ansible_distribution == 'centos'
+ 
+ - name: restart httpd (centos)
+   tags: apache,centos, httpd
+   service:
+     name: httpd
+     state: restarted
+   when: httpd.changed
