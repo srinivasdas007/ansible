@@ -1,0 +1,23 @@
+# In this yaml file we will first install docker, git and take the war file from the githut and will install tomcat on the container and copy the war file to it, this is all done by writing the yaml file: for more info take a look at the code. One new thing is we added the loop in the yaml file
+
+
+---
+- hosts: webservsers
+  become: true
+  become_user: root
+  tasks:
+  - name: install git & docker
+    yum: name={{item}} state=present
+    loop:
+    - git
+    - docker
+  - name: start docker
+    service: name=docker state=started
+  - name: clone the git repository
+    git: repo=https://github.com/Sonal0409/AnsibleDockerdemo.git dest=/tmp/gitrepo
+  - name: build the docker file
+    command: chdir=/tmp/gitrepo docker build -t myimage:ansible .
+  - name: Run a container from the image
+    command: docker run -itd -P myimage:ansible
+
+
